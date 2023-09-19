@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lycoris.Api.Server", "Lycoris.Api.Server\Lycoris.Api.Server.csproj", "{A5E32A22-4062-43CA-A09B-A91B812623CC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lycoris.Api.Application", "Lycoris.Api.Application\Lycoris.Api.Application.csproj", "{8928B7F8-49E0-4221-9EB8-8AB8F865E5CF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lycoris.Api.Model", "Lycoris.Api.Model\Lycoris.Api.Model.csproj", "{2C1AA025-7CD9-4F59-AC6B-F09795A7C587}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lycoris.Api.Core", "Lycoris.Api.Core\Lycoris.Api.Core.csproj", "{29E08457-135D-41D0-AB9C-8453F724BBB9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{28DD8A21-B48F-4099-98D0-E268E1B7389A}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lycoris.Api.EntityFrameworkCore", "Lycoris.Api.EntityFrameworkCore\Lycoris.Api.EntityFrameworkCore.csproj", "{3141ED92-1ED7-4A86-87C1-5F3AFC6975CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lycoris.Api.Common", "Lycoris.Api.Common\Lycoris.Api.Common.csproj", "{D2B0D89C-C569-4785-A666-1B1D8150B222}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5E32A22-4062-43CA-A09B-A91B812623CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5E32A22-4062-43CA-A09B-A91B812623CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5E32A22-4062-43CA-A09B-A91B812623CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5E32A22-4062-43CA-A09B-A91B812623CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8928B7F8-49E0-4221-9EB8-8AB8F865E5CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8928B7F8-49E0-4221-9EB8-8AB8F865E5CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8928B7F8-49E0-4221-9EB8-8AB8F865E5CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8928B7F8-49E0-4221-9EB8-8AB8F865E5CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C1AA025-7CD9-4F59-AC6B-F09795A7C587}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C1AA025-7CD9-4F59-AC6B-F09795A7C587}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C1AA025-7CD9-4F59-AC6B-F09795A7C587}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C1AA025-7CD9-4F59-AC6B-F09795A7C587}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29E08457-135D-41D0-AB9C-8453F724BBB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29E08457-135D-41D0-AB9C-8453F724BBB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29E08457-135D-41D0-AB9C-8453F724BBB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29E08457-135D-41D0-AB9C-8453F724BBB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3141ED92-1ED7-4A86-87C1-5F3AFC6975CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3141ED92-1ED7-4A86-87C1-5F3AFC6975CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3141ED92-1ED7-4A86-87C1-5F3AFC6975CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3141ED92-1ED7-4A86-87C1-5F3AFC6975CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2B0D89C-C569-4785-A666-1B1D8150B222}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2B0D89C-C569-4785-A666-1B1D8150B222}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2B0D89C-C569-4785-A666-1B1D8150B222}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2B0D89C-C569-4785-A666-1B1D8150B222}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {545A76DE-0B76-4C14-A031-5A3FA89CA16B}
+	EndGlobalSection
+EndGlobal

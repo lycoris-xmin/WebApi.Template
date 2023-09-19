@@ -1,0 +1,32 @@
+﻿using Lycoris.Api.Application.Schedule.Shared;
+using Lycoris.Base.Logging;
+using Lycoris.Quartz.Extensions.Job;
+using Quartz;
+
+namespace Lycoris.Api.Application.Schedule
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    [QuartzJob("Cron表达式定时测试任务", Trigger = QuartzTriggerEnum.CRON, Cron = "0 0 0/1 * * ? ")]
+    public class CronJobDemo : BaseJob
+    {
+        public CronJobDemo(ILycorisLoggerFactory factory) : base(factory.CreateLogger<SimpleJobDemo>())
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        protected override Task DoWorkAsync(IJobExecutionContext context)
+        {
+            this._logger.Info("任务执行");
+            this._logger.Warn("任务执行");
+            this._logger.Error("任务执行");
+            return Task.CompletedTask;
+        }
+    }
+}

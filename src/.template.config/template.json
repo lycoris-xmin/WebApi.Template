@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Lycoris",
+  "classifications": [ "Template" ],
+  "identity": "Lycoris.Api",
+  "name": "Lycoris.Api",
+  "shortName": "Lycoris.Api",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "Lycoris.Api"
+}
