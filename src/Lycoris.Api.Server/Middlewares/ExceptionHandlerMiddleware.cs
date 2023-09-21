@@ -1,9 +1,9 @@
 ﻿using Lycoris.Api.Common;
+using Lycoris.Api.Core.Logging;
 using Lycoris.Api.Model.Cnstants;
 using Lycoris.Api.Model.Global.Output;
 using Lycoris.Api.Server.Shared;
 using Lycoris.Base.Extensions;
-using Lycoris.Base.Logging;
 
 namespace Lycoris.Api.Server.Middlewares
 {

@@ -1,7 +1,7 @@
-﻿using Lycoris.Api.Model.Cnstants;
+﻿using Lycoris.Api.Core.Logging;
+using Lycoris.Api.Model.Cnstants;
 using Lycoris.Api.Server.Shared;
 using Lycoris.Base.Extensions;
-using Lycoris.Base.Logging;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Net.Http.Headers;
 using System.Text;

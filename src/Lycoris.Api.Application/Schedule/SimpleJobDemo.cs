@@ -1,5 +1,5 @@
 ﻿using Lycoris.Api.Application.Schedule.Shared;
-using Lycoris.Base.Logging;
+using Lycoris.Api.Core.Logging;
 using Lycoris.Quartz.Extensions.Job;
 using Quartz;
 
@@ -15,12 +15,7 @@ namespace Lycoris.Api.Application.Schedule
 
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        protected override Task DoWorkAsync(IJobExecutionContext context)
+        protected override Task HandlerWorkAsync(IJobExecutionContext context)
         {
             this._logger.Info("任务执行");
             this._logger.Warn("任务执行");

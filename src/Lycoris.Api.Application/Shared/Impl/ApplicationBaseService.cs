@@ -1,6 +1,6 @@
-﻿using Lycoris.Api.Core.Repositories;
+﻿using Lycoris.Api.Core.Logging;
+using Lycoris.Api.Core.Repositories;
 using Lycoris.Api.Model.Contexts;
-using Lycoris.Base.Logging;
 
 namespace Lycoris.Api.Application.Shared.Impl
 {

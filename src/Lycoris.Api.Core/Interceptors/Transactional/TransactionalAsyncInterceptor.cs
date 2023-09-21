@@ -2,8 +2,8 @@
 using Castle.DynamicProxy;
 using Lycoris.Api.Core.EntityFrameworkCore;
 using Lycoris.Api.Core.Interceptors.Base;
+using Lycoris.Api.Core.Logging;
 using Lycoris.Autofac.Extensions;
-using Lycoris.Base.Logging;
 
 namespace Lycoris.Api.Core.Interceptors.Transactional
 {

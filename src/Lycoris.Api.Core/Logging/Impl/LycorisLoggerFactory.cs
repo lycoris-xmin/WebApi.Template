@@ -1,9 +1,10 @@
-﻿using Lycoris.Base.Logging;
+﻿using Lycoris.Autofac.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace Lycoris.Api.Core.Logging
+namespace Lycoris.Api.Core.Logging.Impl
 {
+    [AutofacRegister(ServiceLifeTime.Singleton)]
     public class LycorisLoggerFactory : ILycorisLoggerFactory
     {
         private readonly ILoggerFactory _factory;

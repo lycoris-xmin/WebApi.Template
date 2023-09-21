@@ -8,8 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Lycoris.AutoMapper.Extensions" Version="6.0.0" />
-    <PackageReference Include="Lycoris.Quartz.Extensions" Version="6.1.0" />
-    <PackageReference Include="Lycoris.RabbitMQ.Extensions" Version="6.0.4" />
+    <PackageReference Include="Lycoris.Quartz.Extensions" Version="6.1.1" />
+    <PackageReference Include="Lycoris.RabbitMQ.Extensions" Version="6.0.5" />
   </ItemGroup>
 
   <ItemGroup>

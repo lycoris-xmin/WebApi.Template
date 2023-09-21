@@ -1,4 +1,5 @@
 ﻿using Lycoris.Api.Application.AppService.Permission;
+using Lycoris.Api.Common.Extensions;
 using Lycoris.Api.Model.Contexts;
 using Lycoris.Api.Model.Exceptions;
 using Lycoris.Api.Server.Shared;

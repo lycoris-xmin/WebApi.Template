@@ -1,6 +1,6 @@
 ﻿using Lycoris.Api.Application.RqbbitMq.Impl;
-using Lycoris.Base.Logging;
-using Lycoris.RabbitMQ.Extensions.Impl;
+using Lycoris.Api.Core.Logging;
+using Lycoris.RabbitMQ.Extensions.DataModel;
 
 namespace Lycoris.Api.Application.RqbbitMq.Consumers
 {

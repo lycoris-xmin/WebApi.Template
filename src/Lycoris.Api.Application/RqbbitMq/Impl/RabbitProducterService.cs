@@ -1,5 +1,5 @@
-﻿using Lycoris.Autofac.Extensions;
-using Lycoris.Base.Logging;
+﻿using Lycoris.Api.Core.Logging;
+using Lycoris.Autofac.Extensions;
 using Lycoris.RabbitMQ.Extensions;
 
 namespace Lycoris.Api.Application.RqbbitMq.Impl

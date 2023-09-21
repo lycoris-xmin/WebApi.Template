@@ -1,4 +1,4 @@
-﻿using Lycoris.Base.Logging;
+﻿using Lycoris.Api.Core.Logging;
 using Lycoris.Quartz.Extensions.Job;
 using Quartz;
 
@@ -14,12 +14,12 @@ namespace Lycoris.Api.Application.Schedule.Shared
         }
 
 
-        protected override Task DoWork(IJobExecutionContext context)
+        protected override Task DoWorkAsync(IJobExecutionContext context)
         {
             _logger.JobWorkRegister(JobTraceId, JobName);
             return DoWorkAsync(context);
         }
 
-        protected abstract Task DoWorkAsync(IJobExecutionContext context);
+        protected abstract Task HandlerWorkAsync(IJobExecutionContext context);
     }
 }

@@ -1,7 +1,5 @@
 ﻿using Lycoris.Api.Common;
-using Lycoris.Api.Core.Logging;
 using Lycoris.Autofac.Extensions;
-using Lycoris.Base.Logging;
 using Lycoris.CSRedisCore.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,10 +9,6 @@ namespace Lycoris.Api.Core
     {
         public override void SerivceRegister(IServiceCollection services)
         {
-            services.AddLycorisLoggerFactory<LycorisLoggerFactory>();
-
-            // 注册内存缓存
-
             if (AppSettings.Redis.Use)
             {
                 // CSRedisCore扩展

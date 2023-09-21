@@ -1,4 +1,4 @@
-﻿using Lycoris.Base.Logging;
+﻿using Lycoris.Api.Core.Logging;
 
 namespace Lycoris.Api.Application.RqbbitMq.Impl
 {

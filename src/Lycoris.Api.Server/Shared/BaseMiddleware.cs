@@ -1,5 +1,5 @@
 ﻿using Lycoris.Api.Common;
-using Lycoris.Base.Logging;
+using Lycoris.Api.Core.Logging;
 
 namespace Lycoris.Api.Server.Shared
 {
