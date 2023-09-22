@@ -14,12 +14,12 @@ namespace Lycoris.Api.Application.Schedule.Shared
         }
 
 
-        protected override Task DoWorkAsync(IJobExecutionContext context)
+        protected override Task DoWorkAsync()
         {
             _logger.JobWorkRegister(JobTraceId, JobName);
-            return DoWorkAsync(context);
+            return HandlerWorkAsync();
         }
 
-        protected abstract Task HandlerWorkAsync(IJobExecutionContext context);
+        protected abstract Task HandlerWorkAsync();
     }
 }

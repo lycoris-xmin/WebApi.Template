@@ -15,7 +15,11 @@ namespace Lycoris.Api.Application.Schedule
 
         }
 
-        protected override Task HandlerWorkAsync(IJobExecutionContext context)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected override Task HandlerWorkAsync()
         {
             this._logger.Info("任务执行");
             this._logger.Warn("任务执行");
