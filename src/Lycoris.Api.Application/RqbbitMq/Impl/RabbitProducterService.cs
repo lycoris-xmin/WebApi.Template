@@ -1,4 +1,5 @@
-﻿using Lycoris.Api.Core.Logging;
+﻿using Lycoris.Api.Application.RqbbitMq.Constants;
+using Lycoris.Api.Core.Logging;
 using Lycoris.Autofac.Extensions;
 using Lycoris.RabbitMQ.Extensions;
 
@@ -29,7 +30,9 @@ namespace Lycoris.Api.Application.RqbbitMq.Impl
         /// <returns></returns>
         public async Task DemoPublish(string content)
         {
-
+            // 示例
+            var producter = _rabbitFactory.Create(RabbitMQProducer.Demo);
+            await producter.PublishAsync(RabbitMQRoute.Demo, content);
         }
     }
 }

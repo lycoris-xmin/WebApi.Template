@@ -33,9 +33,8 @@ namespace Lycoris.Api.EntityFrameworkCore.Tables
         /// 
         /// </summary>
         /// <returns></returns>
-        public override List<object> InitialData()
+        public override List<object> SeedData()
         {
-            var id = 1;
             return new List<object>()
             {
 

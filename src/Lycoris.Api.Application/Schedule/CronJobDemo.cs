@@ -1,7 +1,6 @@
 ﻿using Lycoris.Api.Application.Schedule.Shared;
 using Lycoris.Api.Core.Logging;
 using Lycoris.Quartz.Extensions.Job;
-using Quartz;
 
 namespace Lycoris.Api.Application.Schedule
 {

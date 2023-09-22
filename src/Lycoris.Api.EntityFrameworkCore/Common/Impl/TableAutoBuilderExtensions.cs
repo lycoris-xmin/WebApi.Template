@@ -79,7 +79,7 @@ namespace Lycoris.Api.EntityFrameworkCore.Common.Impl
 
                 // 种子数据
                 var instance = Activator.CreateInstance(item) as IMySqlBaseEntity;
-                var data = instance!.InitialData();
+                var data = instance!.SeedData();
                 if (data.HasValue())
                     _builder.HasData(data);
             }

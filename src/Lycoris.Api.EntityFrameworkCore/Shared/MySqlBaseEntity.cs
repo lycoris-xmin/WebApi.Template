@@ -29,6 +29,6 @@ namespace Lycoris.Api.EntityFrameworkCore.Shared
         /// 种子数据
         /// </summary>
         /// <returns></returns>
-        public virtual List<object> InitialData() => new();
+        public virtual List<object> SeedData() => new();
     }
 }

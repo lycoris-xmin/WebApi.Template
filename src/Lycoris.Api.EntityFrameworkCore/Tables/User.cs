@@ -73,7 +73,7 @@ namespace Lycoris.Api.EntityFrameworkCore.Tables
         /// 种子数据
         /// </summary>
         /// <returns></returns>
-        public override List<object> InitialData()
+        public override List<object> SeedData()
         {
             return new List<object>()
             {

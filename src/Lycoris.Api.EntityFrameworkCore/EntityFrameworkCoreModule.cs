@@ -10,7 +10,7 @@ namespace Lycoris.Api.EntityFrameworkCore
     /// <summary>
     /// 
     /// </summary>
-    public class DataBaseModule : LycorisRegisterModule
+    public class EntityFrameworkCoreModule : LycorisRegisterModule
     {
         /// <summary>
         /// 

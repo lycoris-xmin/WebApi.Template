@@ -9,6 +9,6 @@
         /// 种子数据
         /// </summary>
         /// <returns></returns>
-        List<object> InitialData();
+        List<object> SeedData();
     }
 }

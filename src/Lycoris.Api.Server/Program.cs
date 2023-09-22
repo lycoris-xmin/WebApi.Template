@@ -65,7 +65,7 @@ builder.UseAutofacExtensions(builder =>
     // Ä£¿é×¢²á
     builder.AddLycorisRegisterModule<CommonModule>();
     // Ä£¿é×¢²á
-    builder.AddLycorisRegisterModule<DataBaseModule>();
+    builder.AddLycorisRegisterModule<EntityFrameworkCoreModule>();
     // Ä£¿é×¢²á
     builder.AddLycorisRegisterModule<CoreModule>();
     // Ä£¿é×¢²á
