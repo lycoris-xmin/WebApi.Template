@@ -1,4 +1,4 @@
-using Lycoris.Api.Application;
+ï»¿using Lycoris.Api.Application;
 using Lycoris.Api.Common;
 using Lycoris.Api.Core;
 using Lycoris.Api.EntityFrameworkCore;
@@ -27,13 +27,13 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ÅäÖÃÎÄ¼ş
+// é…ç½®æ–‡ä»¶
 SettingManager.JsonConfigurationInitialization(AppSettings.Path.JsonFile);
 
 // 
 builder.Host.ConfigureHostConfiguration(configuration => configuration.AddCommandLine(args));
 
-// ÈÕÖ¾×é¼ş
+// æ—¥å¿—ç»„ä»¶
 builder.Host.UseSerilog((context, config) =>
 {
     AppSettings.Serilog.SerilogOverrideOptions.ForEach(OverrideOption => config.MinimumLevel.Override(OverrideOption.Source, OverrideOption.MinLevel.ToEnum<LogEventLevel>()));
@@ -57,31 +57,31 @@ builder.Host.UseSerilog((context, config) =>
     }
 });
 
-// Ìæ»»ÏµÍ³×Ô´øµÄDIÈİÆ÷ÎªAutofac
+// æ›¿æ¢ç³»ç»Ÿè‡ªå¸¦çš„DIå®¹å™¨ä¸ºAutofac
 builder.UseAutofacExtensions(builder =>
 {
-    // Ä£¿é×¢²á
+    // æ¨¡å—æ³¨å†Œ
     builder.AddLycorisRegisterModule<ModelModule>();
-    // Ä£¿é×¢²á
+    // æ¨¡å—æ³¨å†Œ
     builder.AddLycorisRegisterModule<CommonModule>();
-    // Ä£¿é×¢²á
+    // æ¨¡å—æ³¨å†Œ
     builder.AddLycorisRegisterModule<EntityFrameworkCoreModule>();
-    // Ä£¿é×¢²á
+    // æ¨¡å—æ³¨å†Œ
     builder.AddLycorisRegisterModule<CoreModule>();
-    // Ä£¿é×¢²á
+    // æ¨¡å—æ³¨å†Œ
     builder.AddLycorisRegisterModule<ApplicationModule>();
 });
 
-// ÉèÖÃÔËĞĞ¶Ë¿ÚºÅ
+// è®¾ç½®è¿è¡Œç«¯å£å·
 builder.WebHost.UseUrls($"http://*:{AppSettings.Application.HttpPort}");
 
-// AutoMapper×¢²á
+// AutoMapperæ³¨å†Œ
 builder.Services.AddAutoMapperService(opt => opt.AddMapperProfile<ViewModelMapperProfile>().AddMapperProfile<ApplicationMapperProfile>());
 
-// ×¢²áÇëÇóÉÏÏÂÎÄ½âÎö
+// æ³¨å†Œè¯·æ±‚ä¸Šä¸‹æ–‡è§£æ
 builder.Services.AddHttpContextAccessor();
 
-// ÉèÖÃÔÊĞíÖÆ¶¨À´Ô´µÄ¿çÓòÇëÇó
+// è®¾ç½®å…è®¸åˆ¶å®šæ¥æºçš„è·¨åŸŸè¯·æ±‚
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
@@ -105,47 +105,47 @@ builder.Services.AddCors(options =>
     });
 });
 
-// ¿ØÖÆÆ÷×¢²á
+// æ§åˆ¶å™¨æ³¨å†Œ
 builder.Services.AddControllers(opt =>
 {
-    // ½Ó¿ÚÈ«¾ÖÒì³£²¶×½
+    // æ¥å£å…¨å±€å¼‚å¸¸æ•æ‰
     opt.Filters.Add<ApiExceptionHandlerAttribute>(0);
 
-    // XSS¹ıÂË
+    // XSSè¿‡æ»¤
     opt.Filters.Add<GanssXssFilterAttribute>(1);
 
-    // ÇëÇóÉÏÏÂÎÄ
+    // è¯·æ±‚ä¸Šä¸‹æ–‡
     opt.Filters.Add<RequestContextAttribute>(2);
 })
 .AddNewtonsoftJson(opt =>
 {
-    // ÊôĞÔÃûÍÕ·å´¦Àí
+    // å±æ€§åé©¼å³°å¤„ç†
     opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-    // ÉèÖÃÊ±¼ä¸ñÊ½
+    // è®¾ç½®æ—¶é—´æ ¼å¼
     opt.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-    // ºöÂÔÑ­»·ÒıÓÃ
+    // å¿½ç•¥å¾ªç¯å¼•ç”¨
     opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 });
 
-// ²ÎÊıÑéÖ¤Ê§°Ü´¦Àí
+// å‚æ•°éªŒè¯å¤±è´¥å¤„ç†
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
     options.InvalidModelStateResponseFactory = context =>
     {
-        // »ñÈ¡ÑéÖ¤Ê§°ÜµÄÄ£ĞÍ×Ö¶Î 
+        // è·å–éªŒè¯å¤±è´¥çš„æ¨¡å‹å­—æ®µ 
         var errors = context.ModelState.Where(e => e.Value != null && e.Value.Errors.Count > 0).Select(e => e.Value?.Errors?.FirstOrDefault()?.ErrorMessage).ToList();
         context.HttpContext.Items.AddOrUpdate(HttpItems.ResponseBody, string.Join(",", errors));
         return new BadRequestResult();
     };
 });
 
-// ÉèÖÃ±íµ¥µÄ×î´ó¼üÖµ
+// è®¾ç½®è¡¨å•çš„æœ€å¤§é”®å€¼
 builder.Services.Configure<FormOptions>(options => options.MultipartBodyLengthLimit = 60000000);
 
-// ÅäÖÃ¿ÉÒÔÍ¬²½ÇëÇó¶ÁÈ¡Á÷Êı¾İ
+// é…ç½®å¯ä»¥åŒæ­¥è¯·æ±‚è¯»å–æµæ•°æ®
 builder.Services.Configure<KestrelServerOptions>(x => x.AllowSynchronousIO = true);
 
-// ÏìÓ¦Ñ¹ËõÅäÖÃ
+// å“åº”å‹ç¼©é…ç½®
 builder.Services.Configure<BrotliCompressionProviderOptions>(options => options.Level = CompressionLevel.Fastest);
 builder.Services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Fastest);
 builder.Services.AddResponseCompression(options =>
@@ -153,11 +153,11 @@ builder.Services.AddResponseCompression(options =>
     options.EnableForHttps = true;
     options.Providers.Add<BrotliCompressionProvider>();
     options.Providers.Add<GzipCompressionProvider>();
-    // À©Õ¹Ò»Ğ©ÀàĞÍ (MimeTypesÖĞÓĞÒ»Ğ©»ù±¾µÄÀàĞÍ,¿ÉÒÔ´ò¶Ïµã¿´¿´)
+    // æ‰©å±•ä¸€äº›ç±»å‹ (MimeTypesä¸­æœ‰ä¸€äº›åŸºæœ¬çš„ç±»å‹,å¯ä»¥æ‰“æ–­ç‚¹çœ‹çœ‹)
     options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "text/html; charset=utf-8", "application/xhtml+xml", "application/atom+xml", "image/svg+xml" });
 });
 
-// ¿ª·¢»·¾³ OpenApi
+// å¼€å‘ç¯å¢ƒ OpenApi
 if (AppSettings.IsDebugger)
 {
     builder.Services.AddEndpointsApiExplorer();
@@ -169,69 +169,69 @@ if (AppSettings.IsDebugger)
             Name = HttpHeaders.Authentication,
             In = ParameterLocation.Header,
             Type = SecuritySchemeType.ApiKey,
-            Description = "·ÃÎÊÁîÅÆ"
+            Description = "è®¿é—®ä»¤ç‰Œ"
         });
 
-        // ´Ë´¦½öÕ¹Ê¾¸ù¾İ°æ±¾·Ö×éµÄ·½·¨£¬Êµ¼ÊÉÏÇë¸ù¾İÏîÄ¿×ÔĞĞ¸Ä¶¯
+        // æ­¤å¤„ä»…å±•ç¤ºæ ¹æ®ç‰ˆæœ¬åˆ†ç»„çš„æ–¹æ³•ï¼Œå®é™…ä¸Šè¯·æ ¹æ®é¡¹ç›®è‡ªè¡Œæ”¹åŠ¨
         opt.SwaggerDoc(ApiVersionGroup.V1, new Microsoft.OpenApi.Models.OpenApiInfo() { Title = "Lycoris.Api", Version = ApiVersionGroup.V1 });
-        // Èç¹ûÓĞ¶à¸ö°æ±¾Ãâ£¬ÔòĞèÒª·Ö±ğÅäÖÃÃ¿¸ö°æ±¾µÄĞÅÏ¢
+        // å¦‚æœæœ‰å¤šä¸ªç‰ˆæœ¬å…ï¼Œåˆ™éœ€è¦åˆ†åˆ«é…ç½®æ¯ä¸ªç‰ˆæœ¬çš„ä¿¡æ¯
         //opt.SwaggerDoc(ApiVersionGroup.V2, new Microsoft.OpenApi.Models.OpenApiInfo() { Title = "Lycoris.Api", Version = ApiVersionGroup.V2 });
 
-        // ×¢ÊÍÎÄµµ
+        // æ³¨é‡Šæ–‡æ¡£
         var source = Assembly.GetEntryAssembly()?.GetName().Name?.Replace(".Server", "");
         opt.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{source}.Server.xml"));
         opt.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{source}.Model.xml"));
     });
 }
 
-// Ìí¼Ó³ÌĞòÆô¶¯ÈÎÎñ
+// æ·»åŠ ç¨‹åºå¯åŠ¨ä»»åŠ¡
 builder.Services.AddHostedService<ApplicationHostedService>();
 
-// ºóÌ¨²Ëµ¥
+// åå°èœå•
 builder.Services.AddMenuConfiguration();
 
 var app = builder.Build();
 
-// Ê¹ÓÃAutoMapperÈ«¾ÖÀ©Õ¹
+// ä½¿ç”¨AutoMapperå…¨å±€æ‰©å±•
 app.UseAutoMapperExtensions();
 
-// ¿ª·¢»·¾³ OpenApi
+// å¼€å‘ç¯å¢ƒ OpenApi
 if (AppSettings.IsDebugger)
 {
     app.UseSwagger();
     app.UseSwaggerUI(x =>
     {
-        // ´Ë´¦½öÕ¹Ê¾¸ù¾İ°æ±¾·Ö×éµÄ·½·¨£¬Êµ¼ÊÉÏÇë¸ù¾İÏîÄ¿×ÔĞĞ¸Ä¶¯
+        // æ­¤å¤„ä»…å±•ç¤ºæ ¹æ®ç‰ˆæœ¬åˆ†ç»„çš„æ–¹æ³•ï¼Œå®é™…ä¸Šè¯·æ ¹æ®é¡¹ç›®è‡ªè¡Œæ”¹åŠ¨
         x.SwaggerEndpoint($"/swagger/{ApiVersionGroup.V1}/swagger.json", $"Lycoris.Api - {ApiVersionGroup.V1}");
-        // Èç¹ûÓĞ¶à¸ö°æ±¾Ãâ£¬ÔòĞèÒª·Ö±ğÅäÖÃÃ¿¸ö°æ±¾µÄĞÅÏ¢
+        // å¦‚æœæœ‰å¤šä¸ªç‰ˆæœ¬å…ï¼Œåˆ™éœ€è¦åˆ†åˆ«é…ç½®æ¯ä¸ªç‰ˆæœ¬çš„ä¿¡æ¯
         //x.SwaggerEndpoint($"/swagger/{ApiVersionGroup.V2}/swagger.json", $"Lycoris.Api - {ApiVersionGroup.V2}");
     });
 }
 
-// ÖĞ¼ä¼şÒì³£²¶×½
+// ä¸­é—´ä»¶å¼‚å¸¸æ•æ‰
 app.UseMiddleware<ExceptionHandlerMiddleware>();
 
-// ÈÕÖ¾¼ÇÂ¼ÖĞ¼ä¼ş
+// æ—¥å¿—è®°å½•ä¸­é—´ä»¶
 app.UseMiddleware<HttpLoggingMiddleware>();
 
-// ÏìÓ¦Ñ¹Ëõ
+// å“åº”å‹ç¼©
 app.UseResponseCompression();
 
-// Â·ÓÉ
+// è·¯ç”±
 app.UseRouting();
 
-// ¿çÓòÖĞ¼ä¼ş
+// è·¨åŸŸä¸­é—´ä»¶
 app.UseCors();
 
-// Cookie²ßÂÔ
+// Cookieç­–ç•¥
 app.UseCookiePolicy(new CookiePolicyOptions() { HttpOnly = HttpOnlyPolicy.Always });
 
-// ÖÕ½áµãÉèÖÃ
+// ç»ˆç»“ç‚¹è®¾ç½®
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
 });
 
-// Æô¶¯³ÌĞò
+// å¯åŠ¨ç¨‹åº
 app.Run();
 
