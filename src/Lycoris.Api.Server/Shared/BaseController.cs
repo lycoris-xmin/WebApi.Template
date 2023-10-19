@@ -3,7 +3,7 @@ using Lycoris.Api.Core.Logging;
 using Lycoris.Api.Model.Cnstants;
 using Lycoris.Api.Model.Contexts;
 using Lycoris.Api.Model.Global.Output;
-using Lycoris.Base.Extensions;
+using Lycoris.Common.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lycoris.Api.Server.Shared

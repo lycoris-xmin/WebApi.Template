@@ -1,6 +1,5 @@
 ﻿using Lycoris.Api.EntityFrameworkCore.Common;
 using Lycoris.Api.EntityFrameworkCore.Common.Impl;
-using Lycoris.Base.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Diagnostics.CodeAnalysis;

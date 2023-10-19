@@ -2,7 +2,7 @@
 using Lycoris.Api.Model.Cnstants;
 using Lycoris.Api.Model.Exceptions;
 using Lycoris.Api.Model.Global.Output;
-using Lycoris.Base.Extensions;
+using Lycoris.Common.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 

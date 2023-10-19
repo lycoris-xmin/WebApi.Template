@@ -1,5 +1,5 @@
-﻿using Lycoris.Base.Extensions;
-using Lycoris.Base.Helper;
+﻿using Lycoris.Common.Extensions;
+using Lycoris.Common.Helper;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Lycoris.Api.EntityFrameworkCore.Common.Impl

@@ -7,7 +7,7 @@ using Lycoris.Api.Server.FilterAttributes;
 using Lycoris.Api.Server.Models.Authentication;
 using Lycoris.Api.Server.Shared;
 using Lycoris.AutoMapper.Extensions;
-using Lycoris.Base.Helper;
+using Lycoris.Common.Helper;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 

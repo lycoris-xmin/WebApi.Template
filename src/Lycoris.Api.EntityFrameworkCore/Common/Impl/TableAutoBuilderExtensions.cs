@@ -1,7 +1,7 @@
 ﻿using Lycoris.Api.Common;
 using Lycoris.Api.EntityFrameworkCore.Common.Attributes;
 using Lycoris.Api.EntityFrameworkCore.Shared;
-using Lycoris.Base.Extensions;
+using Lycoris.Common.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json;

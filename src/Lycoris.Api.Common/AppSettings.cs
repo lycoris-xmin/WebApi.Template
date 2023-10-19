@@ -1,6 +1,6 @@
-﻿using Lycoris.Base.ConfigurationManager;
-using Lycoris.Base.Extensions;
-using Lycoris.Base.Helper;
+﻿using Lycoris.Common.ConfigurationManager;
+using Lycoris.Common.Extensions;
+using Lycoris.Common.Helper;
 
 namespace Lycoris.Api.Common
 {
@@ -143,7 +143,7 @@ namespace Lycoris.Api.Common
                     if (_HttpPort.HasValue)
                         return _HttpPort.Value;
 
-                    var val = "Application:HttpPort".TryGetConfig();
+                    var val = SettingManager.TryGetConfig("Application:HttpPort");
 
                     if (val.IsNullOrEmpty())
                         _HttpPort = 80;
@@ -234,7 +234,7 @@ namespace Lycoris.Api.Common
                         if (_AllowCredentials.HasValue)
                             return _AllowCredentials.Value;
 
-                        var tmp = "Application:Cors:AllowCredentials".TryGetConfig();
+                        var tmp = SettingManager.TryGetConfig("Application:Cors:AllowCredentials");
                         if (!tmp.IsNullOrEmpty())
                             _AllowCredentials = tmp.ToTryBool();
 
@@ -262,7 +262,7 @@ namespace Lycoris.Api.Common
                     if (_WorkIdLength.HasValue)
                         return _WorkIdLength.Value;
 
-                    var val = "Snowflake:WorkIdLength".TryGetConfig();
+                    var val = SettingManager.TryGetConfig("Snowflake:WorkIdLength");
 
                     if (val.IsNullOrEmpty())
                         _WorkIdLength = 80;
@@ -286,7 +286,7 @@ namespace Lycoris.Api.Common
                     if (_StartTime.HasValue)
                         return _StartTime.Value;
 
-                    var val = "Snowflake:StartTime".TryGetConfig();
+                    var val = SettingManager.TryGetConfig("Snowflake:StartTime");
 
                     _StartTime = val.ToTryDateTime();
                     _StartTime ??= new DateTime(2020, 1, 1);
@@ -321,7 +321,7 @@ namespace Lycoris.Api.Common
         /// </summary>
         public class Sql
         {
-            private static string DockerName => "Redis:DockerName".TryGetConfig() ?? "";
+            private static string DockerName => SettingManager.TryGetConfig("Redis:DockerName") ?? "";
 
             private static string Server
             {
@@ -332,7 +332,7 @@ namespace Lycoris.Api.Common
                         server = DockerName;
 
                     if (server.IsNullOrEmpty())
-                        server = "Sql:Server".TryGetConfig();
+                        server = SettingManager.TryGetConfig("Sql:Server");
 
                     if (server.IsNullOrEmpty())
                         throw new ArgumentNullException("Sql:Server");
@@ -345,7 +345,7 @@ namespace Lycoris.Api.Common
             {
                 get
                 {
-                    var port = "Sql:Port".TryGetConfig();
+                    var port = SettingManager.TryGetConfig("Sql:Port");
                     if (port.IsNullOrEmpty())
                         throw new ArgumentNullException("Sql:Port");
 
@@ -357,7 +357,7 @@ namespace Lycoris.Api.Common
             {
                 get
                 {
-                    var database = "Sql:DataBase".TryGetConfig();
+                    var database = SettingManager.TryGetConfig("Sql:DataBase");
                     if (database.IsNullOrEmpty())
                         throw new ArgumentNullException("Sql:DataBase");
 
@@ -369,7 +369,7 @@ namespace Lycoris.Api.Common
             {
                 get
                 {
-                    var userName = "Sql:UserName".TryGetConfig();
+                    var userName = SettingManager.TryGetConfig("Sql:UserName");
                     if (userName.IsNullOrEmpty())
                         throw new ArgumentNullException("Sql:Password");
 
@@ -381,7 +381,7 @@ namespace Lycoris.Api.Common
             {
                 get
                 {
-                    var password = "Sql:Password".TryGetConfig();
+                    var password = SettingManager.TryGetConfig("Sql:Password");
                     if (password.IsNullOrEmpty())
                         throw new ArgumentNullException("Sql:Password");
 
@@ -400,7 +400,7 @@ namespace Lycoris.Api.Common
             {
                 get
                 {
-                    var version = "Sql:Version".TryGetConfig();
+                    var version = SettingManager.TryGetConfig("Sql:Version");
                     if (version.IsNullOrEmpty())
                         throw new ArgumentNullException("Sql:Version");
 
@@ -438,7 +438,7 @@ namespace Lycoris.Api.Common
                     if (_TablePrefix != null)
                         return _TablePrefix;
 
-                    _TablePrefix = "Sql:TablePrefix".TryGetConfig();
+                    _TablePrefix = SettingManager.TryGetConfig("Sql:TablePrefix");
                     _TablePrefix ??= "";
                     _TablePrefix = _TablePrefix.Trim();
 
@@ -455,7 +455,7 @@ namespace Lycoris.Api.Common
                 {
                     get
                     {
-                        var value = "Sql:SeedData:Account".TryGetConfig();
+                        var value = SettingManager.TryGetConfig("Sql:SeedData:Account");
                         if (value.IsNullOrEmpty())
                             throw new ArgumentNullException("Sql:SeedData:Account");
 
@@ -470,7 +470,7 @@ namespace Lycoris.Api.Common
                 {
                     get
                     {
-                        var value = "Sql:SeedData:Password".TryGetConfig();
+                        var value = SettingManager.TryGetConfig("Sql:SeedData:Password");
                         if (value.IsNullOrEmpty())
                             throw new ArgumentNullException("Sql:SeedData:Password");
 
@@ -481,12 +481,12 @@ namespace Lycoris.Api.Common
                 /// <summary>
                 /// 
                 /// </summary>
-                public static string NickName => "Sql:SeedData:NickName".TryGetConfig() ?? "超级管理员";
+                public static string NickName => SettingManager.TryGetConfig("Sql:SeedData:NickName") ?? "超级管理员";
 
                 /// <summary>
                 /// 
                 /// </summary>
-                public static string DefaultAvatar => "Sql:SeedData:DefaultAvatar".TryGetConfig() ?? "";
+                public static string DefaultAvatar => SettingManager.TryGetConfig("Sql:SeedData:DefaultAvatar") ?? "";
             }
         }
 
@@ -495,7 +495,7 @@ namespace Lycoris.Api.Common
         /// </summary>
         public static class Redis
         {
-            private static string DockerName => "Redis:DockerName".TryGetConfig() ?? "";
+            private static string DockerName => SettingManager.TryGetConfig("Redis:DockerName") ?? "";
 
             private static bool? _Use = null;
 
@@ -509,7 +509,7 @@ namespace Lycoris.Api.Common
                     if (_Use.HasValue)
                         return _Use.Value;
 
-                    var val = "Redis:Use".TryGetConfig();
+                    var val = SettingManager.TryGetConfig("Redis:Use");
                     if (!val.IsNullOrEmpty() && bool.TryParse(val, out bool _temp))
                         _Use = _temp;
 
@@ -535,7 +535,7 @@ namespace Lycoris.Api.Common
                         _Host = DockerName;
 
                     if (_Host.IsNullOrEmpty())
-                        _Host = "Redis:Host".TryGetConfig();
+                        _Host = SettingManager.TryGetConfig("Redis:Host");
 
                     if (_Host.IsNullOrEmpty())
                         throw new ArgumentNullException("Redis:Host");
@@ -558,7 +558,7 @@ namespace Lycoris.Api.Common
                     if (_Port.HasValue)
                         return _Port.Value;
 
-                    var tmp = "Redis:Port".TryGetConfig();
+                    var tmp = SettingManager.TryGetConfig("Redis:Port");
                     _Port = tmp.ToTryInt();
                     if (!_Port.HasValue)
                         throw new ArgumentNullException("Redis:Port");
@@ -581,7 +581,7 @@ namespace Lycoris.Api.Common
                     if (_UserName != null)
                         return _UserName;
 
-                    _UserName = "Redis:UserName".TryGetConfig();
+                    _UserName = SettingManager.TryGetConfig("Redis:UserName");
                     _UserName ??= "";
 
                     return _UserName;
@@ -602,7 +602,7 @@ namespace Lycoris.Api.Common
                     if (_Password != null)
                         return _Password;
 
-                    _Password = "Redis:Password".TryGetConfig();
+                    _Password = SettingManager.TryGetConfig("Redis:Password");
                     if (_Password.IsNullOrEmpty())
                         throw new ArgumentNullException("Redis:Password");
 
@@ -625,7 +625,7 @@ namespace Lycoris.Api.Common
                     if (_UseDatabase.HasValue)
                         return _UseDatabase.Value;
 
-                    if (int.TryParse("Redis:UseDatabase".TryGetConfig(), out int val))
+                    if (int.TryParse(SettingManager.TryGetConfig("Redis:UseDatabase"), out int val))
                         _UseDatabase = val;
 
                     _UseDatabase ??= 0;
@@ -647,7 +647,7 @@ namespace Lycoris.Api.Common
                     if (_SSL.HasValue)
                         return _SSL.Value;
 
-                    if (bool.TryParse("Redis:SSL".TryGetConfig(), out bool val))
+                    if (bool.TryParse(SettingManager.TryGetConfig("Redis:SSL"), out bool val))
                         _SSL = val;
 
                     _SSL ??= false;
@@ -691,7 +691,7 @@ namespace Lycoris.Api.Common
                     if (_ConnectTimeout.HasValue)
                         return _ConnectTimeout.Value;
 
-                    if (int.TryParse("Redis:ConnectTimeout".TryGetConfig(), out int val))
+                    if (int.TryParse(SettingManager.TryGetConfig("Redis:ConnectTimeout"), out int val))
                         _ConnectTimeout = val;
 
                     _ConnectTimeout ??= 0;
@@ -711,7 +711,7 @@ namespace Lycoris.Api.Common
                     if (_SyncTimeout.HasValue)
                         return _SyncTimeout.Value;
 
-                    if (int.TryParse("Redis:SyncTimeout".TryGetConfig(), out int val))
+                    if (int.TryParse(SettingManager.TryGetConfig("Redis:SyncTimeout"), out int val))
                         _SyncTimeout = val;
 
                     _SyncTimeout ??= 0;
@@ -733,7 +733,7 @@ namespace Lycoris.Api.Common
                     if (_Poolsize.HasValue)
                         return _Poolsize.Value;
 
-                    if (int.TryParse("Redis:Poolsize".TryGetConfig(), out int val))
+                    if (int.TryParse(SettingManager.TryGetConfig("Redis:Poolsize"), out int val))
                         _Poolsize = val;
 
                     _Poolsize ??= 0;
@@ -754,7 +754,7 @@ namespace Lycoris.Api.Common
                     if (_ConnectRetry.HasValue)
                         return _ConnectRetry.Value;
 
-                    if (int.TryParse("Redis:ConnectRetry".TryGetConfig(), out int val))
+                    if (int.TryParse(SettingManager.TryGetConfig("Redis:ConnectRetry"), out int val))
                         _ConnectRetry = val;
 
                     _ConnectRetry ??= 0;
@@ -780,7 +780,7 @@ namespace Lycoris.Api.Common
                     if (_Use.HasValue)
                         return _Use.Value;
 
-                    var val = "RabbitMq:Use".TryGetConfig();
+                    var val = SettingManager.TryGetConfig("RabbitMq:Use");
                     if (!val.IsNullOrEmpty() && bool.TryParse(val, out bool _temp))
                         _Use = _temp;
 
@@ -801,7 +801,7 @@ namespace Lycoris.Api.Common
                     if (!_Host.IsNullOrEmpty())
                         return _Host!;
 
-                    _Host = "RabbitMq:Host".TryGetConfig();
+                    _Host = SettingManager.TryGetConfig("RabbitMq:Host");
                     if (_Host.IsNullOrEmpty())
                         throw new ArgumentNullException("RabbitMq:Host");
 
@@ -821,7 +821,7 @@ namespace Lycoris.Api.Common
                     if (_Port.HasValue)
                         return _Port.Value;
 
-                    var val = "RabbitMq:Port".TryGetConfig();
+                    var val = SettingManager.TryGetConfig("RabbitMq:Port");
 
                     if (val.IsNullOrEmpty())
                         throw new ArgumentNullException("RabbitMq:Port");
@@ -847,7 +847,7 @@ namespace Lycoris.Api.Common
                     if (string.IsNullOrEmpty(_UserName) == false)
                         return _UserName;
 
-                    _UserName = "RabbitMq:UserName".TryGetConfig();
+                    _UserName = SettingManager.TryGetConfig("RabbitMq:UserName");
                     if (_UserName.IsNullOrEmpty())
                         throw new ArgumentNullException("RabbitMq:UserName");
 
@@ -867,7 +867,7 @@ namespace Lycoris.Api.Common
                     if (string.IsNullOrEmpty(_Password) == false)
                         return _Password;
 
-                    _Password = "RabbitMq:Password".TryGetConfig();
+                    _Password = SettingManager.TryGetConfig("RabbitMq:Password");
                     if (_Password.IsNullOrEmpty())
                         throw new ArgumentNullException("RabbitMq:Password");
 
@@ -889,7 +889,7 @@ namespace Lycoris.Api.Common
                     if (string.IsNullOrEmpty(_VirtualHost) == false)
                         return _VirtualHost;
 
-                    _VirtualHost = "RabbitMq:VirtualHost".TryGetConfig();
+                    _VirtualHost = SettingManager.TryGetConfig("RabbitMq:VirtualHost");
                     _VirtualHost ??= "/";
                     return _VirtualHost;
                 }
@@ -913,7 +913,7 @@ namespace Lycoris.Api.Common
                     if (_MinLevel != null)
                         return _MinLevel;
 
-                    _MinLevel = "Serilog:MinLevel".TryGetConfig();
+                    _MinLevel = SettingManager.TryGetConfig("Serilog:MinLevel");
                     _MinLevel ??= "Information";
                     return _MinLevel;
                 }
@@ -931,7 +931,7 @@ namespace Lycoris.Api.Common
                     if (_Console.HasValue)
                         return _Console.Value;
 
-                    var val = "Serilog:Console".TryGetConfig();
+                    var val = SettingManager.TryGetConfig("Serilog:Console");
                     if (!val.IsNullOrEmpty() && bool.TryParse(val, out bool _temp))
                         _Console = _temp;
 
@@ -952,7 +952,7 @@ namespace Lycoris.Api.Common
                     if (_File.HasValue)
                         return _File.Value;
 
-                    var val = "Serilog:File".TryGetConfig();
+                    var val = SettingManager.TryGetConfig("Serilog:File");
                     if (!val.IsNullOrEmpty() && bool.TryParse(val, out bool _temp))
                         _File = _temp;
 

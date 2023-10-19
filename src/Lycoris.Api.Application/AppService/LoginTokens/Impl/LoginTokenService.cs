@@ -1,7 +1,7 @@
 ﻿using Lycoris.Api.Core.Logging;
 using Lycoris.Autofac.Extensions;
-using Lycoris.Base.Extensions;
-using Lycoris.Base.Helper;
+using Lycoris.Common.Extensions;
+using Lycoris.Common.Helper;
 
 namespace Lycoris.Api.Application.AppService.LoginTokens.Impl
 {

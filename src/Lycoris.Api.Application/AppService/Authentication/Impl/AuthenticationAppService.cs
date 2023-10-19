@@ -10,7 +10,7 @@ using Lycoris.Api.EntityFrameworkCore.Tables.Enums;
 using Lycoris.Api.Model.Exceptions;
 using Lycoris.Autofac.Extensions;
 using Lycoris.AutoMapper.Extensions;
-using Lycoris.Base.Extensions;
+using Lycoris.Common.Extensions;
 using System.Net;
 
 namespace Lycoris.Api.Application.AppService.Authentication.Impl

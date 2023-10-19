@@ -2,7 +2,7 @@
 using Lycoris.Api.EntityFrameworkCore.Contexts;
 using Lycoris.Api.EntityFrameworkCore.Shared;
 using Lycoris.Autofac.Extensions;
-using Lycoris.Base.Extensions;
+using Lycoris.Common.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using MySqlConnector;

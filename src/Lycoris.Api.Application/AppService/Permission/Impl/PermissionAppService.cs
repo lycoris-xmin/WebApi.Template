@@ -6,7 +6,7 @@ using Lycoris.Api.EntityFrameworkCore.Tables;
 using Lycoris.Api.Model.Configurations;
 using Lycoris.Autofac.Extensions;
 using Lycoris.AutoMapper.Extensions;
-using Lycoris.Base.Extensions;
+using Lycoris.Common.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lycoris.Api.Application.AppService.Permission.Impl

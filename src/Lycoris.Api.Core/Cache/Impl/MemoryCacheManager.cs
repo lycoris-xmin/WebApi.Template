@@ -1,5 +1,5 @@
 ﻿using Lycoris.Autofac.Extensions;
-using Lycoris.Base.Extensions;
+using Lycoris.Common.Extensions;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Lycoris.Api.Core.Cache.Impl

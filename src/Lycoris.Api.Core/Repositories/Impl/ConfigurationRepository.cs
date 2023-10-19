@@ -3,7 +3,7 @@ using Lycoris.Api.Core.Cache;
 using Lycoris.Api.Core.EntityFrameworkCore;
 using Lycoris.Api.EntityFrameworkCore.Tables;
 using Lycoris.Autofac.Extensions;
-using Lycoris.Base.Extensions;
+using Lycoris.Common.Extensions;
 using Lycoris.CSRedisCore.Extensions;
 
 namespace Lycoris.Api.Core.Repositories.Impl

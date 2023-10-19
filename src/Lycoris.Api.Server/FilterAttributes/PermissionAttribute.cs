@@ -3,7 +3,7 @@ using Lycoris.Api.Common.Extensions;
 using Lycoris.Api.Model.Contexts;
 using Lycoris.Api.Model.Exceptions;
 using Lycoris.Api.Server.Shared;
-using Lycoris.Base.Extensions;
+using Lycoris.Common.Extensions;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Net;
 

@@ -1,5 +1,5 @@
 ﻿using Lycoris.Api.Core.Logging;
-using Lycoris.Base.Extensions;
+using Lycoris.Common.Extensions;
 using Lycoris.RabbitMQ.Extensions;
 using Lycoris.RabbitMQ.Extensions.DataModel;
 using System.Diagnostics;

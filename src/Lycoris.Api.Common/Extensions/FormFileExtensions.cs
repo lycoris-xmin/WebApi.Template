@@ -1,5 +1,5 @@
 ﻿using Lycoris.Api.Common.Extensions;
-using Lycoris.Base.Extensions;
+using Lycoris.Common.Extensions;
 using Microsoft.AspNetCore.Http;
 
 namespace Lycoris.Api.Common.Extensions
