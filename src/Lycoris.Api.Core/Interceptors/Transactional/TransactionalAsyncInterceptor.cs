@@ -60,6 +60,7 @@ namespace Lycoris.Api.Core.Interceptors.Transactional
 
             try
             {
+                invocation.Proceed();
                 var task = (Task)invocation.ReturnValue;
                 await task;
 
