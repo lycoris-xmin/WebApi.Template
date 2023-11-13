@@ -4,7 +4,7 @@
     <!-- The package metadata. Fill in the properties marked as TODO below -->
     <!-- Follow the instructions on https://learn.microsoft.com/en-us/nuget/create-packages/package-authoring-best-practices -->
     <PackageId>Lycoris.Api</PackageId>
-    <PackageVersion>1.0.0-rc-1.0</PackageVersion>
+    <PackageVersion>1.0.1</PackageVersion>
     <Title>Lycoris.Api</Title>
     <Authors>Lycoris</Authors>
     <Description>Templates to use when creating an application for web api by entity framework core.</Description>
