@@ -1,9 +1,11 @@
 ﻿using Lycoris.Api.Application.RqbbitMq.Constants;
 using Lycoris.Api.Application.RqbbitMq.Consumers;
+using Lycoris.Api.Application.Schedule;
 using Lycoris.Api.Common;
 using Lycoris.Api.Core.Interceptors.Transactional;
 using Lycoris.Autofac.Extensions;
 using Lycoris.Autofac.Extensions.Impl;
+using Lycoris.Quartz.Extensions;
 using Lycoris.RabbitMQ.Extensions;
 using Lycoris.RabbitMQ.Extensions.Options;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,11 +32,9 @@ namespace Lycoris.Api.Application
         private static void QuartzSchedulerBuilder(IServiceCollection services)
         {
             // 更多使用方法详见：https://www.nuget.org/packages/Lycoris.Quartz.Extensions/6.1.0#show-readme-container
-            //services.AddQuartzSchedulerCenter(builder =>
-            //{
-            //    builder.AddJob<SimpleJobDemo>();
-            //    builder.AddJob<CronJobDemo>();
-            //});
+            services.AddQuartzSchedulerCenter()
+                    .AddQuartzSchedulerJob<SimpleJobDemo>()
+                    .AddQuartzSchedulerJob<CronJobDemo>();
         }
 
         /// <summary>
@@ -46,52 +46,45 @@ namespace Lycoris.Api.Application
             if (!AppSettings.RabbitMq.Use)
                 return;
 
-            services.AddRabbitMQExtensions(builder =>
+            var mqBuilder = services.AddRabbitMQExtensions(opt =>
             {
-                const string defaultMqOptions = "DefaultRabbitMQOption";
+                opt.Hosts = new string[] { AppSettings.RabbitMq.Host };
+                opt.Port = AppSettings.RabbitMq.Port;
+                opt.UserName = AppSettings.RabbitMq.UserName;
+                opt.Password = AppSettings.RabbitMq.Password;
+                opt.VirtualHost = AppSettings.RabbitMq.VirtualHost;
+                opt.AutoDelete = true;
+            });
 
-                // 基础配置注册
-                builder.AddRabbitMQOption(defaultMqOptions, opt =>
+            mqBuilder.AddRabbitProducer(RabbitMQProducer.Demo, opt =>
+            {
+                opt.InitializeCount = 5;
+                opt.Exchange = RabbitMQExchange.Demo;
+                opt.Type = RabbitExchangeType.Direct;
+                opt.RouteQueues = new RouteQueue[]
                 {
-                    opt.Hosts = new string[] { AppSettings.RabbitMq.Host };
-                    opt.Port = AppSettings.RabbitMq.Port;
-                    opt.UserName = AppSettings.RabbitMq.UserName;
-                    opt.Password = AppSettings.RabbitMq.Password;
-                    opt.VirtualHost = AppSettings.RabbitMq.VirtualHost;
-                    opt.AutoDelete = true;
-                });
-
-                // 生产者注册
-                builder.AddRabbitProducer(RabbitMQProducer.Demo, opt =>
-                {
-                    opt.UseRabbitOption(defaultMqOptions);
-                    opt.InitializeCount = 5;
-                    opt.Exchange = RabbitMQExchange.Demo;
-                    opt.Type = RabbitExchangeType.Direct;
-                    opt.RouteQueues = new RouteQueue[]
+                    new RouteQueue()
                     {
-                        new RouteQueue()
-                        {
-                            Route = RabbitMQRoute.Demo,
-                            Queue = RabbitMQQueue.Demo
-                        }
-                    };
-                });
+                        Route = RabbitMQRoute.Demo,
+                        Queue = RabbitMQQueue.Demo
+                    }
+                };
+            });
+
+            mqBuilder.AddRabbitConsumer(opt =>
+            {
+                opt.Type = RabbitExchangeType.Direct;
+                opt.RouteQueues = new RouteQueue[]
+                {
+                    new RouteQueue()
+                    {
+                        Route = RabbitMQRoute.Demo,
+                        Queue = RabbitMQQueue.Demo
+                    }
+                };
 
                 // 消费者注册
-                builder.AddRabbitConsumer(opt =>
-                {
-                    opt.UseRabbitOption(defaultMqOptions);
-                    opt.Type = RabbitExchangeType.Direct;
-                    opt.RouteQueues = new RouteQueue[]
-                    {
-                        new RouteQueue()
-                        {
-                            Route = RabbitMQRoute.Demo,
-                            Queue = RabbitMQQueue.Demo
-                        }
-                    };
-                }).AddListener<DemoConsumer>(RabbitMQExchange.Demo, RabbitMQQueue.Demo);
+                opt.AddListener<DemoConsumer>(RabbitMQExchange.Demo, RabbitMQQueue.Demo);
             });
         }
     }

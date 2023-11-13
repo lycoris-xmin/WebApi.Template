@@ -4,7 +4,7 @@ using Lycoris.RabbitMQ.Extensions.DataModel;
 
 namespace Lycoris.Api.Application.RqbbitMq.Consumers
 {
-    public class DemoConsumer : BaseRabbitConsumerListener
+    public class DemoConsumer : RabbitConsumerListener
     {
         public DemoConsumer(ILycorisLoggerFactory factory) : base(factory.CreateLogger<DemoConsumer>(), "demo test")
         {

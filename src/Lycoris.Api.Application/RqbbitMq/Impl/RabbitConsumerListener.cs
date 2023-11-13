@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace Lycoris.Api.Application.RqbbitMq.Impl
 {
-    public abstract class BaseRabbitConsumerListener : RabbitConsumerListener
+    public abstract class RabbitConsumerListener : BaseRabbitConsumerListener
     {
         protected string ConsumerName { get; private set; }
 
@@ -22,7 +22,7 @@ namespace Lycoris.Api.Application.RqbbitMq.Impl
         /// <param name="logger"></param>
         /// <param name="ConsumerName"></param>
 #pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
-        public BaseRabbitConsumerListener(ILycorisLogger logger, string ConsumerName)
+        public RabbitConsumerListener(ILycorisLogger logger, string ConsumerName)
 #pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
         {
             _logger = logger;

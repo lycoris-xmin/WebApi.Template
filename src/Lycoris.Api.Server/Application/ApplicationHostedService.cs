@@ -1,4 +1,5 @@
 ﻿using Lycoris.Api.EntityFrameworkCore.Contexts;
+using Lycoris.Quartz.Extensions;
 
 namespace Lycoris.Api.Server.Application
 {
@@ -8,6 +9,7 @@ namespace Lycoris.Api.Server.Application
     public class ApplicationHostedService : IHostedService
     {
         private readonly IServiceProvider _serviceProvider;
+        private readonly IQuartzSchedulerCenter _schedulerCenter;
 
         /// <summary>
         /// 
@@ -16,6 +18,7 @@ namespace Lycoris.Api.Server.Application
         public ApplicationHostedService(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
+            _schedulerCenter = _serviceProvider.GetRequiredService<IQuartzSchedulerCenter>();
         }
 
         /// <summary>
@@ -29,6 +32,9 @@ namespace Lycoris.Api.Server.Application
 
             // 数据库迁移，预热
             await EntityFrameworkCoreWarmUpAsync(scope.ServiceProvider);
+
+            await _schedulerCenter.StartScheduleAsync();
+            await _schedulerCenter.ManualRunNonStandbyJobsAsync();
         }
 
         /// <summary>

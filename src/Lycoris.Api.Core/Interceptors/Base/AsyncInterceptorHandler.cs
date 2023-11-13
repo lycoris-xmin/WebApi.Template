@@ -116,12 +116,7 @@ namespace Lycoris.Api.Core.Interceptors.Base
             if (invocation.Method.GetCustomAttribute<T>() != null)
                 return invocation.Method;
 
-            var implMethod = invocation.InvocationTarget
-                                       .GetType()
-                                       .GetMethods()
-                                       .Where(m => m.Name == invocation.Method.Name && m.GetParameters().Length == invocation.Method.GetParameters().Length)
-                                       .Where(x => x.GetCustomAttribute<T>(false) != null)
-                                       .FirstOrDefault();
+            var implMethod = invocation.InvocationTarget.GetType().GetMethod(invocation.Method.Name, invocation.Method.GetParameters().Select(x => x.ParameterType).ToArray());
 
             return implMethod ?? invocation.Method;
         }

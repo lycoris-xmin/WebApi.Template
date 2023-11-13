@@ -70,6 +70,8 @@ builder.UseAutofacExtensions(builder =>
     builder.AddLycorisRegisterModule<CoreModule>();
     // 模块注册
     builder.AddLycorisRegisterModule<ApplicationModule>();
+    // 
+    builder.EnabledLycorisMultipleService = true;
 });
 
 // 设置运行端口号
@@ -109,13 +111,13 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers(opt =>
 {
     // 接口全局异常捕捉
-    opt.Filters.Add<ApiExceptionHandlerAttribute>(0);
+    opt.Filters.Add<ApiExceptionHandlerAttribute>();
 
     // XSS过滤
-    opt.Filters.Add<GanssXssFilterAttribute>(1);
+    opt.Filters.Add<GanssXssFilterAttribute>();
 
     // 请求上下文
-    opt.Filters.Add<RequestContextAttribute>(2);
+    opt.Filters.Add<RequestContextAttribute>();
 })
 .AddNewtonsoftJson(opt =>
 {
@@ -125,6 +127,8 @@ builder.Services.AddControllers(opt =>
     opt.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
     // 忽略循环引用
     opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    // 忽略空值属性
+    opt.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
 });
 
 // 参数验证失败处理
@@ -173,9 +177,9 @@ if (AppSettings.IsDebugger)
         });
 
         // 此处仅展示根据版本分组的方法，实际上请根据项目自行改动
-        opt.SwaggerDoc(ApiVersionGroup.V1, new Microsoft.OpenApi.Models.OpenApiInfo() { Title = "Lycoris.Api", Version = ApiVersionGroup.V1 });
+        opt.SwaggerDoc(ApiVersionGroup.V1, new OpenApiInfo() { Title = "Lycoris.Blog", Version = ApiVersionGroup.V1 });
         // 如果有多个版本免，则需要分别配置每个版本的信息
-        //opt.SwaggerDoc(ApiVersionGroup.V2, new Microsoft.OpenApi.Models.OpenApiInfo() { Title = "Lycoris.Api", Version = ApiVersionGroup.V2 });
+        //opt.SwaggerDoc(ApiVersionGroup.V2, new Microsoft.OpenApi.Models.OpenApiInfo() { Title = "Lycoris.Blog", Version = ApiVersionGroup.V2 });
 
         // 注释文档
         var source = Assembly.GetEntryAssembly()?.GetName().Name?.Replace(".Server", "");
@@ -186,9 +190,6 @@ if (AppSettings.IsDebugger)
 
 // 添加程序启动任务
 builder.Services.AddHostedService<ApplicationHostedService>();
-
-// 后台菜单
-builder.Services.AddMenuConfiguration();
 
 var app = builder.Build();
 
@@ -202,9 +203,9 @@ if (AppSettings.IsDebugger)
     app.UseSwaggerUI(x =>
     {
         // 此处仅展示根据版本分组的方法，实际上请根据项目自行改动
-        x.SwaggerEndpoint($"/swagger/{ApiVersionGroup.V1}/swagger.json", $"Lycoris.Api - {ApiVersionGroup.V1}");
+        x.SwaggerEndpoint($"/swagger/{ApiVersionGroup.V1}/swagger.json", $"Lycoris.Blog - {ApiVersionGroup.V1}");
         // 如果有多个版本免，则需要分别配置每个版本的信息
-        //x.SwaggerEndpoint($"/swagger/{ApiVersionGroup.V2}/swagger.json", $"Lycoris.Api - {ApiVersionGroup.V2}");
+        //x.SwaggerEndpoint($"/swagger/{ApiVersionGroup.V2}/swagger.json", $"Lycoris.Blog - {ApiVersionGroup.V2}");
     });
 }
 
@@ -213,6 +214,9 @@ app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 // 日志记录中间件
 app.UseMiddleware<HttpLoggingMiddleware>();
+
+// 
+app.UseStaticFiles();
 
 // 响应压缩
 app.UseResponseCompression();
