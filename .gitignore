@@ -67,3 +67,4 @@ msbuild.wrn
 /Lycoris.Api/.vs
 /src/.vs
 /src/Lycoris.Api.Server/AppData/appsettings.Localhost.json
+/template builder/content

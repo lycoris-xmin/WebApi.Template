@@ -3,8 +3,7 @@ using Lycoris.Api.EntityFrameworkCore.Common.Attributes;
 using Lycoris.Api.EntityFrameworkCore.Shared;
 using Lycoris.Common.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Newtonsoft.Json;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 using System.Xml.XPath;
@@ -48,7 +47,6 @@ namespace Lycoris.Api.EntityFrameworkCore.Common.Impl
                 var props = item!.GetProperties()
                                  .Where(x => x.PropertyType.IsPublic)
                                  .Where(x => !x.PropertyType.IsAbstract)
-                                 .Where(x => !x.PropertyType.IsGenericType)
                                  .Where(x => x.GetCustomAttribute<NotMappedAttribute>(false) == null)
                                  .ToList();
 
@@ -61,7 +59,7 @@ namespace Lycoris.Api.EntityFrameworkCore.Common.Impl
                     if (column.IsPrimary)
                         _builder.HasKey(p.Name);
 
-                    _builder.Property(p.Name).TableColumnAutoBuilder(p, column, item.FullName, navigator);
+                    _builder.Property(p.Name).TableColumnAutoBuilder(p, column, item.FullName, navigator, assembly);
                 }
 
                 // 表索引
@@ -85,16 +83,16 @@ namespace Lycoris.Api.EntityFrameworkCore.Common.Impl
             }
         }
 
-
         /// <summary>
-        /// 
+        /// 表列处理
         /// </summary>
         /// <param name="propertyBuilder"></param>
         /// <param name="p"></param>
         /// <param name="column"></param>
         /// <param name="className"></param>
         /// <param name="navigator"></param>
-        private static void TableColumnAutoBuilder(this Microsoft.EntityFrameworkCore.Metadata.Builders.PropertyBuilder propertyBuilder, PropertyInfo? p, TableColumnAttribute column, string? className, XPathNavigator navigator)
+        /// <param name="assembly"></param>
+        private static void TableColumnAutoBuilder(this PropertyBuilder propertyBuilder, PropertyInfo? p, TableColumnAttribute column, string? className, XPathNavigator navigator, Assembly assembly)
         {
             if (p == null)
                 return;
@@ -146,24 +144,53 @@ namespace Lycoris.Api.EntityFrameworkCore.Common.Impl
                 }
 
                 if (column.JsonMap)
-                {
-                    propertyBuilder.HasConversion(new ValueConverter<object?, string>(x => x.ToJson(), v => JsonConvert.DeserializeObject(v, p.PropertyType)));
-
-                    if (AppSettings.Sql.Version.StartsWith("8"))
-                        propertyBuilder.HasColumnType("json");
-                }
+                    propertyBuilder.HasColumnType("json");
                 else if (column.SqlPassword)
                     propertyBuilder.HasConversion<SqlPasswrodConverter>();
                 else if (column.Sensitive)
                     propertyBuilder.HasConversion<SqlSensitiveConverter>();
             }
 
-            // 注释
+            // 注释（列注释）
             var memberName = $"P:{className}.{p.Name}";
             var summaryNode = navigator.SelectSingleNode($"/doc/members/member[@name='{memberName}']/summary");
+
             var comment = summaryNode?.InnerXml.Trim();
-            if (!comment.IsNullOrEmpty())
-                propertyBuilder.HasComment(comment);
+            comment ??= "";
+
+            if (p.PropertyType.IsEnum)
+            {
+                var fields = p.PropertyType.GetFields(BindingFlags.Public | BindingFlags.Static);
+
+                comment += "：";
+
+                var _navigator = assembly != p.PropertyType.Assembly ? GetOtherAssemblySummary(p.PropertyType) : navigator;
+
+                foreach (var item in fields)
+                {
+                    // 列枚举注释
+                    // 由于枚举值存放位置可能不在当前程序集，所以如果当前程序集没有找到列
+                    var value = item.GetValue(null);
+                    summaryNode = _navigator.SelectSingleNode($"/doc/members/member[@name='F:{p.PropertyType.FullName}.{value}']/summary");
+
+                    comment += $"{(int)value!}-{summaryNode?.InnerXml.Trim() ?? ""},";
+                }
+
+                comment = comment.TrimEnd(',');
+            }
+
+            propertyBuilder.HasComment(comment);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="propertyType"></param>
+        /// <returns></returns>
+        private static XPathNavigator GetOtherAssemblySummary(Type propertyType)
+        {
+            var xmlDoc = new XPathDocument(Path.Combine(AppContext.BaseDirectory, $"{propertyType.Assembly.GetName().Name}.xml"));
+            return xmlDoc.CreateNavigator();
         }
     }
 }

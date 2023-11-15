@@ -9,6 +9,9 @@ namespace Lycoris.Api.Core
     {
         public override void SerivceRegister(IServiceCollection services)
         {
+            services.AddMemoryCache();
+
+
             if (AppSettings.Redis.Use)
             {
                 // CSRedisCore扩展

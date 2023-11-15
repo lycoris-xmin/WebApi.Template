@@ -22,9 +22,9 @@ dotnet new Lycoris.Api -n MysqlProject
 - **[Serilog](https://github.com/serilog/serilog-aspnetcore)**
 
 ### 模版使用扩展包
-- **[Lycoris.Base - 基础扩展](https://github.com/lycoris-xmin/Lycoris.Base)**
+- **[Lycoris.Common - 基础扩展](https://github.com/lycoris-xmin/Common.Extensions)**
 - **[Lycoris.Autofac.Extensions - Autofac扩展](https://github.com/lycoris-xmin/Lycoris.Autofac.Extensions)**
-- **[Lycoris.Quartz.Extensions - Quartz调度任务扩展](https://github.com/lycoris-xmin/Lycoris.Quartz.Extensions)**
+- **[Lycoris.Quartz - Quartz调度任务扩展](https://github.com/lycoris-xmin/Lycoris.Quartz)**
 - **[Lycoris.CSRedisCore.Extensions - CSRedisCore扩展](https://github.com/lycoris-xmin/Lycoris.CSRedisCore.Extensions)**
 - **[Lycoris.RabbitMQ.Extensions - Rabbitmq扩展](https://github.com/lycoris-xmin/Lycoris.RabbitMQ.Extensions)**
 
