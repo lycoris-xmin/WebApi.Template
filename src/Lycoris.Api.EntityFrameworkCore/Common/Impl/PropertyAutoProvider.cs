@@ -42,7 +42,7 @@ namespace Lycoris.Api.EntityFrameworkCore.Common.Impl
         {
             foreach (var item in entities.Properties)
             {
-                if (item.Metadata.ClrType == typeof(long) || item.Metadata.ClrType == typeof(long?) && item.Metadata.ClrType.GetCustomAttribute<SnowflakeAttribute>(false) != null)
+                if ((item.Metadata.ClrType == typeof(long) || item.Metadata.ClrType == typeof(long?)) && item.Metadata.PropertyInfo != null && item.Metadata.PropertyInfo!.GetCustomAttribute<SnowflakeAttribute>(false) != null)
                 {
                     if (item.CurrentValue != null && (long)item.CurrentValue > 0)
                         continue;
